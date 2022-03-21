@@ -1,25 +1,31 @@
 {
-  "name": "titaniumaplus",
+  "name": "project02",
   "version": "1.0.0",
-  "description": "repo for assignments and practice problems",
+  "description": "Repository for backend cohort - Thorium",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sabihak89/titaniumaplus.git"
+    "url": "git+https://github.com/Devashish514/project-02-intern.git"
   },
-  "author": "functionUp",
+  "author": "Devashish Goswami",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sabihak89/titaniumaplus/issues"
+    "url": "https://github.com/Devashish514/project-02-intern.git/issues"
   },
-  "homepage": "https://github.com/sabihak89/titaniumaplus#readme",
+  "homepage": "https://github.com/Devashish514/project-02-intern.git#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.12.9"
+    "email-validator": "^2.0.4",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.6",
+    "nodemon": "^2.0.15"
   }
 }

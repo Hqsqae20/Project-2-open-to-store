@@ -7,8 +7,9 @@ const  emailValidator=require("email-validator")
 const createCollege = async function (req, res) {
     try {
         let data = req.body;
+        let logoLink=req.body.logoLink
         if (Object.keys(data).length == 0) {
-            return res.status(404).send({ status: false, msg: "college data Not found" })
+            return res.status(400).send({ status: false, msg: "college data Not found" })
         }
         if (data) {
             if (data.name) {
@@ -22,11 +23,20 @@ const createCollege = async function (req, res) {
             }
             if (!data.logoLink) {
                 return res.status(400).send({ status: false, error: "LogoLink is required" });
+            
             }
+            const isValidLink =/(ftp|http|https|HTTP|HTTPS|FTP):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(logoLink.trim()) 
+             
+            if(!isValidLink){
+                return res.status(400).send({ status: false, error: " valid LogoLink is required" });
+
+            }
+            console.log(data);
+            
         }
         
         let result = await collegeModel.create(data);
-        res.status(201).send({ status: true, message: "College data created successfully",data: result });
+        res.status(201).send({ status: true, message: "College data created successfully",newdata: result });
     }
     catch (err) {
         res.status(500).send({ msg: err });
@@ -39,7 +49,7 @@ const createIntern = async function (req, res) {
         const valiNo=Number(mobile);
         // console.log(valiNo)
         if (Object.keys(data).length == 0) {
-            return res.status(404).send({ status: false, err: "Intern data Not Found!!" })
+            return res.status(400).send({ status: false, err: "Intern data Not Found!!" })
         }
         if (data) {
             if (!data.name) {
@@ -95,11 +105,11 @@ const getCollegeDetails = async function (req, res) {
         }
         let result = await collegeModel.findOne({ name: collegeName });
         if(!result) {
-            return res.status(404).send({ status:false,msg: "CollegeName not found" })
+            return res.status(400).send({ status:false,msg: "CollegeName is invalid" })
         }
 
-        let collegeId=result._id
-        let result2 = await internModel.find({ collegeId:collegeId}).select({_id:1,email:1,name:1,mobile:1});
+        //let collegeId=result._id
+        let result2 = await internModel.find({ collegeId:{ $eq: result._id }}).select({_id:1,email:1,name:1,mobile:1});
         let {name ,fullName,logoLink}=result
         
         const finalData = {
@@ -109,7 +119,7 @@ const getCollegeDetails = async function (req, res) {
             intern: result2.length?result2:{message:"No interns applied for this college"}
         }
         
-         return res.status(201).send({ status:true,message:  `Intern list`,data:finalData})
+         return res.status(200).send({ status:true,message:  `Intern list`,data:finalData})
 
     } catch (err) {
         res.status(500).send({ error: err })

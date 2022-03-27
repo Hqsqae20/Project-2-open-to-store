@@ -3,9 +3,9 @@ const router = express.Router();
 const Controllers= require("../controller/mainController")
 
 
-router.post("/createCollege", Controllers.createCollege  )
-router.post("/createIntern",Controllers.createIntern)
-router.get("/getCollegeDetails",Controllers.getCollegeDetails)
+router.post("/functionup/createCollege", Controllers.createCollege  )
+router.post("/functionup/createIntern",Controllers.createIntern)
+router.get("/functionup/getCollegeDetails",Controllers.getCollegeDetails)
 
 
 
